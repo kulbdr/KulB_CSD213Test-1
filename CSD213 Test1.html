@@ -71,19 +71,8 @@
   Error = document.getElementById("Error");
  
   function add_Act() {
-    var activity = document.getElementById("Activity").value;
-    var Weight = document.getElementById("Weight").value;
 
-    if (activity==){
-      Error.getElementById("Error").innerHTML ="Activity name is rejected.";
-    }
-
-    if (Weight<1,Weight>100,Weight==){
-      Error.getElementById("Error").innerHTML = "Weight is rejected";
-    }
-
-
-    add_Act++
+    no_Act++
     var table= document. getElementById("my_Table");
     
     var row = table.insertRow(-1);
@@ -92,11 +81,27 @@
     var cell3 = row.insertCell(2);
     var cell4 = row.insertCell(3);
 
-    cell1.innerHTML = "Row" + RowC + " Col1";
-    cell2.innerHTML = "Row" +  RowC + " Col2";
+    cell1.innerHTML = no_Act;
+    cell2.innerHTML = activity;
+    cell3.innerHTML = Weight;
+    cell4.innerHTML = "";
+
+    var activity = document.getElementById("Activity").value;
+    var Weight = document.getElementById("Weight").value;
+
+    if (activity==) {
+      Error.getElementById("Error").innerHTML ="Activity name is rejected.";
+    
+    }
+
+    if (Weight<1,Weight>100,Weight==){
+      Error.getElementById("Error").innerHTML = "Weight is rejected";
+    }
+
+    
   }
- 
- 
+
+
 function del_Act() {
     window.alert("deleteActivity");
   }
