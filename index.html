@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html> 
+<head>
+    <style>
+        table {
+          text-align:center;
+          margin-left: auto;
+          margin-right: auto;
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        input, button {
+          padding: 12px 20px;           
+          margin: 8px 0;
+          display: inline-block;        
+          border: 1px solid #ccc;
+          border-radius: 4px;           
+          box-sizing: border-box;
+          font-family: Arial, Helvetica, sans-serif;
+          align: center;
+        }
+    </style>
+</head>
+<body>
+    <div align="center">
+        <h1>Grade Calculator</h1><br>
+        
+        <button onclick="add_Act()" id="add_Act">Add Activity</button>
+
+        <label for="activity">Activity</label>
+        <input type="text" id="activity" size="4">
+        
+        <label for="Weight">Weight</label>
+        <input type="text" id="Weight" size="4"><br>    
+
+        <button onclick="add_Grad()" id="add_Grad">Add Grade</button>
+
+        <label for="grad">Grade</label>
+        <input type="text" id="grad" size="4">
+
+        <label for="act_No">Activity no:</label>
+        <input type="text" id="act_No" size="4"><br>        
+    
+        <button onclick="del_Act()" id="del_Act">Delete Activity</button><br> 
+
+        <table border="4" id="theTable" style="width:80%">
+            <tr>
+                <th>No:</th>
+                <th>Activity</th> 
+                <th>Weight</th>
+                <th>Grade</th>
+            </tr>  
+            <tr><td>1</td> <td>Lab-1</td><td>10</td> <td></td></tr>
+            <tr><td>2</td> <td>Lab-2</td><td>20</td> <td></td></tr>
+            <tr><td>3</td> <td>Test-1</td><td>30</td> <td></td></tr>
+            <tr><td>4</td> <td>Test-2</td><td>40</td> <td></td></tr>
+        </table>
+        <p id="ERR" style="color:rgb(236, 5, 5);" >Error Message: </p>
+
+    <script>
+        let no_Act = 4;
+        let total_Wt = 100;
+        let ERR = document.getElementById("ERR");
+        let table = document.getElementById("theTable");
+
+        function add_Act() {
+            const activity = document.getElementById("activity").value;
+            const weight = document.getElementById("Weight").value;
+
+            if (!activity) {
+                ERR.innerHTML = "Error Message: Activity name is rejected.";
+                return;
+            }
+
+            if (!weight || isNaN(weight) || weight < 1 || weight > 100) {
+                ERR.innerHTML = "Error Message: Weight is rejected.";
+                return;
+            }
+
+            // Add the new activity to the table
+            act_No++;
+            const row = table.insertRow();
+            row.insertCell(0).innerHTML = act_No;
+            row.insertCell(1).innerHTML = activity;
+            row.insertCell(2).innerHTML = weight;
+            row.insertCell(3).innerHTML = ""; // Empty grade for now
+
+            // Reset fields
+            document.getElementById("activity").value = "";
+            document.getElementById("Weight").value = "";
+            ERR.innerHTML = "";
+        }
+
+        function add_Grad() {
+            const grade = document.getElementById("grad").value;
+            const actNo = document.getElementById("act_No").value;
+
+            if (!grade || isNaN(grade) || grade < 0 || grade > 100) {
+                ERR.innerHTML = "Error Message: Grade is rejected.";
+                return;
+            }
+
+            if (!actNo || actNo > no_Act || actNo < 1) {
+                ERR.innerHTML = "Error Message: Activity No is rejected.";
+                return;
+            }
+
+            // Update the grade for the specific activity
+            table.rows[actNo].cells[3].innerHTML = grade;
+
+            // Reset fields
+            document.getElementById("grad").value = "";
+            document.getElementById("act_No").value = "";
+            ERR.innerHTML = "";
+        }
+
+        function del_Act() {
+            if (no_Act > 4) {
+                table.deleteRow(no_Act);
+                no_Act--;
+                ERR.innerHTML = "";
+            } else {
+                ERR.innerHTML = "Error Message: No more activities to remove.";
+            }
+        }
+    </script>
+</body>
+</html>
